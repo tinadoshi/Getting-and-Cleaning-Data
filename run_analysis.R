@@ -1,8 +1,9 @@
+# Calls the necessary library
+library(dplyr)
+
 # File download
 download.file("https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip", destfile = "project.zip")
 unzip("project.zip")
-
-library(dplyr)
 
 # Read labels and features
 activity_labels <- read.table("./UCI HAR Dataset/activity_labels.txt")
@@ -58,4 +59,5 @@ names(selected_data) <- selected_features
 tidyData <- selected_data %>% group_by(subject, activity) %>%
      summarise_all(mean)
 
+# Export tidy data to TXT
 write.table(tidyData, file = "tidyData.txt", row.names = FALSE)
